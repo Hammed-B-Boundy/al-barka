@@ -1,5 +1,8 @@
 "use client"
 
+import { Menu } from "lucide-react" // <-- Ajouté
+import { SidebarTrigger, useSidebar } from "@/components/ui/sidebar" // <-- Ajouté
+
 interface HeaderProps {
   searchTerm: string
   setSearchTerm: (term: string) => void
@@ -7,6 +10,8 @@ interface HeaderProps {
 }
 
 export default function Header({ searchTerm, setSearchTerm, activeCategory }: HeaderProps) {
+  const { isMobile } = useSidebar() // <-- Utilisation du hook useSidebar
+
   const getCategoryTitle = (category: string) => {
     const titles: { [key: string]: string } = {
       plats: "Plats locaux 🍽️",
@@ -23,9 +28,19 @@ export default function Header({ searchTerm, setSearchTerm, activeCategory }: He
 
   return (
     <div className="p-8 border-b border-gray-200 bg-white">
-      {/* Breadcrumb */}
+      {/* Breadcrumb and Mobile Trigger */}
       <div className="flex items-center gap-2 mb-4 text-sm text-gray-500">
-        <span className="cursor-pointer hover:bg-gray-100 p-1 rounded">←</span>
+        {isMobile && ( // <-- Affiche le bouton de menu seulement sur mobile
+          <SidebarTrigger asChild>
+            <button className="cursor-pointer hover:bg-gray-100 p-1 rounded">
+              <Menu className="h-5 w-5" />
+              <span className="sr-only">Ouvrir le menu</span>
+            </button>
+          </SidebarTrigger>
+        )}
+        {!isMobile && ( // <-- Affiche la flèche de retour seulement sur desktop
+          <span className="cursor-pointer hover:bg-gray-100 p-1 rounded">←</span>
+        )}
         <span>{getBreadcrumb(activeCategory)}</span>
       </div>
 

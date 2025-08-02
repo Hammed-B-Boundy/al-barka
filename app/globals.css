@@ -135,56 +135,6 @@
     min-height: 100vh; /* S'assure que l'application prend toute la hauteur */
   }
 
-  /* Sidebar */
-  .w-72.bg-gray-50.flex.flex-col.border-r.border-gray-200 {
-    width: 100%; /* La sidebar prend toute la largeur */
-    height: auto; /* Hauteur automatique */
-    border-right: none; /* Supprime la bordure droite */
-    border-bottom: 1px solid #e9ecef; /* Ajoute une bordure en bas */
-    flex-direction: row; /* Met les éléments de la sidebar en ligne */
-    justify-content: space-around; /* Distribue les éléments */
-    padding: 10px 0; /* Réduit le padding */
-  }
-
-  .sidebar-header,
-  .sidebar-footer {
-    display: none; /* Cache le logo et le profil utilisateur sur mobile pour simplifier */
-  }
-
-  .sidebar-menu {
-    flex-direction: row; /* Les sections de menu en ligne */
-    justify-content: space-around;
-    padding: 0;
-    width: 100%;
-  }
-
-  .menu-section {
-    margin-bottom: 0;
-    flex: 1; /* Permet aux sections de prendre de l'espace */
-    text-align: center;
-  }
-
-  .menu-item {
-    margin: 0;
-    padding: 8px 0; /* Réduit le padding des items */
-    flex-direction: column; /* Empile icône et texte */
-    gap: 4px;
-  }
-
-  .menu-text {
-    font-size: 12px; /* Réduit la taille du texte */
-  }
-
-  .badge {
-    position: static; /* Positionne le badge normalement */
-    margin-left: 0;
-    margin-top: 4px; /* Ajoute un peu d'espace */
-  }
-
-  .section-title {
-    display: none; /* Cache les titres de section sur mobile */
-  }
-
   /* Header */
   .p-8.border-b.border-gray-200.bg-white {
     padding: 20px; /* Réduit le padding du header */

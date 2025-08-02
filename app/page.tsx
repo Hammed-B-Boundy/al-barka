@@ -1,10 +1,10 @@
 "use client"
 
 import { useState } from "react"
-import Sidebar from "./components/Sidebar"
+import AppSidebar from "./components/Sidebar" // <-- Renommé et importé le nouveau composant
 import Header from "./components/Header"
 import MenuGrid from "./components/MenuGrid"
-import { useToast } from "@/hooks/use-toast" // <-- Ajouté
+import { useToast } from "@/hooks/use-toast"
 
 interface CartItem {
   id: number
@@ -20,7 +20,7 @@ export default function Home() {
   const [activeCategory, setActiveCategory] = useState("plats")
   const [cartItems, setCartItems] = useState<CartItem[]>([])
   const [searchTerm, setSearchTerm] = useState("")
-  const { toast } = useToast() // <-- Initialisation du hook
+  const { toast } = useToast()
 
   const addToCart = (item: any) => {
     const priceNumber = Number.parseInt(item.price.replace(" FCFA", ""))
@@ -30,7 +30,6 @@ export default function Home() {
 
       if (existingItem) {
         toast({
-          // <-- Remplacé alert() par toast()
           title: "Article ajouté !",
           description: `${item.name} (quantité: ${existingItem.quantity + 1})`,
           duration: 2000,
@@ -40,7 +39,6 @@ export default function Home() {
         )
       } else {
         toast({
-          // <-- Remplacé alert() par toast()
           title: "Nouvel article ajouté !",
           description: `${item.name} ajouté au panier`,
           duration: 2000,
@@ -63,7 +61,6 @@ export default function Home() {
     const item = cartItems.find((item) => item.id === id)
     if (item) {
       toast({
-        // <-- Remplacé alert() par toast()
         title: "Article supprimé",
         description: `${item.name} retiré du panier`,
         variant: "destructive",
@@ -83,7 +80,8 @@ export default function Home() {
 
   return (
     <div className="flex min-h-screen max-w-7xl mx-auto my-5 bg-white rounded-3xl overflow-hidden shadow-2xl">
-      <Sidebar activeCategory={activeCategory} setActiveCategory={setActiveCategory} cartCount={getTotalItems()} />
+      <AppSidebar activeCategory={activeCategory} setActiveCategory={setActiveCategory} cartCount={getTotalItems()} />{" "}
+      {/* <-- Utilise AppSidebar */}
       <div className="flex-1 flex flex-col">
         <Header searchTerm={searchTerm} setSearchTerm={setSearchTerm} activeCategory={activeCategory} />
         <MenuGrid
