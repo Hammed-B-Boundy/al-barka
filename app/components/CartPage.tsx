@@ -1,6 +1,7 @@
 "use client"
 
 import { useState } from "react"
+import { useToast } from "@/hooks/use-toast" // <-- Ajouté
 
 interface CartItem {
   id: number
@@ -27,37 +28,57 @@ export default function CartPage({ cartItems, updateQuantity, removeFromCart, ge
     notes: "",
   })
   const [isOrdering, setIsOrdering] = useState(false)
+  const { toast } = useToast() // <-- Initialisation du hook
 
   const handleOrder = async () => {
     if (!customerInfo.name || !customerInfo.phone) {
-      alert("Veuillez remplir au moins votre nom et numéro de téléphone")
+      toast({
+        // <-- Remplacé alert() par toast()
+        title: "Informations manquantes",
+        description: "Veuillez remplir au moins votre nom et numéro de téléphone",
+        variant: "destructive",
+        duration: 3000,
+      })
       return
     }
 
     if (cartItems.length === 0) {
-      alert("Votre panier est vide !")
+      toast({
+        // <-- Remplacé alert() par toast()
+        title: "Panier vide",
+        description: "Votre panier est vide !",
+        variant: "destructive",
+        duration: 3000,
+      })
       return
     }
 
     setIsOrdering(true)
 
+    toast({
+      // <-- Ajouté pour le feedback de chargement
+      title: "Préparation de la commande...",
+      description: "Redirection vers WhatsApp en cours",
+      duration: 2000,
+    })
+
     // Formatage du message pour WhatsApp
     const orderMessage = `*NOUVELLE COMMANDE - AL BARKA*
 
 *Client:* ${customerInfo.name}
-*Téléphone:* ${customerInfo.phone}
+*Telephone:* ${customerInfo.phone}
 ${customerInfo.address ? `*Adresse:* ${customerInfo.address}` : ""}
 
 *COMMANDE:*
 ${cartItems
-  .map((item) => `• ${item.name} x${item.quantity} = ${(item.priceNumber * item.quantity).toLocaleString()} FCFA`)
+  .map((item) => `- ${item.name} x${item.quantity} = ${(item.priceNumber * item.quantity).toLocaleString()} FCFA`)
   .join("\n")}
 
-💰 *TOTAL: ${getTotalPrice().toLocaleString()} FCFA*
+*TOTAL: ${getTotalPrice().toLocaleString()} FCFA*
 
 ${customerInfo.notes ? `*Notes:* ${customerInfo.notes}` : ""}
 
-⏰ *Commande passée le:* ${new Date().toLocaleString("fr-FR")}`
+*Commande passee le:* ${new Date().toLocaleString("fr-FR")}`
 
     // 🔧 REMPLACEZ CE NUMÉRO PAR VOTRE NUMÉRO WHATSAPP
     const restaurantWhatsApp = "22672966621" // ⚠️ CHANGEZ CE NUMÉRO !
@@ -72,7 +93,12 @@ ${customerInfo.notes ? `*Notes:* ${customerInfo.notes}` : ""}
       setCustomerInfo({ name: "", phone: "", address: "", notes: "" })
       setIsOrdering(false)
 
-      alert("Commande transmise vers WhatsApp ! Nous vous contacterons bientôt.")
+      toast({
+        // <-- Remplacé alert() par toast()
+        title: "Commande envoyée !",
+        description: "Votre commande a été transmise vers WhatsApp. Nous vous contacterons bientôt.",
+        duration: 4000,
+      })
     }, 1500)
   }
 
