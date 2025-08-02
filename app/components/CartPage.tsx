@@ -1,7 +1,8 @@
 "use client"
 
 import { useState } from "react"
-import { useToast } from "@/hooks/use-toast" // <-- Ajouté
+import { useToast } from "@/hooks/use-toast"
+import { Trash2 } from "lucide-react" // <-- Ajouté pour l'icône de suppression
 
 interface CartItem {
   id: number
@@ -28,12 +29,11 @@ export default function CartPage({ cartItems, updateQuantity, removeFromCart, ge
     notes: "",
   })
   const [isOrdering, setIsOrdering] = useState(false)
-  const { toast } = useToast() // <-- Initialisation du hook
+  const { toast } = useToast()
 
   const handleOrder = async () => {
     if (!customerInfo.name || !customerInfo.phone) {
       toast({
-        // <-- Remplacé alert() par toast()
         title: "Informations manquantes",
         description: "Veuillez remplir au moins votre nom et numéro de téléphone",
         variant: "destructive",
@@ -44,7 +44,6 @@ export default function CartPage({ cartItems, updateQuantity, removeFromCart, ge
 
     if (cartItems.length === 0) {
       toast({
-        // <-- Remplacé alert() par toast()
         title: "Panier vide",
         description: "Votre panier est vide !",
         variant: "destructive",
@@ -56,7 +55,6 @@ export default function CartPage({ cartItems, updateQuantity, removeFromCart, ge
     setIsOrdering(true)
 
     toast({
-      // <-- Ajouté pour le feedback de chargement
       title: "Préparation de la commande...",
       description: "Redirection vers WhatsApp en cours",
       duration: 2000,
@@ -94,7 +92,6 @@ ${customerInfo.notes ? `*Notes:* ${customerInfo.notes}` : ""}
       setIsOrdering(false)
 
       toast({
-        // <-- Remplacé alert() par toast()
         title: "Commande envoyée !",
         description: "Votre commande a été transmise vers WhatsApp. Nous vous contacterons bientôt.",
         duration: 4000,
@@ -125,19 +122,19 @@ ${customerInfo.notes ? `*Notes:* ${customerInfo.notes}` : ""}
 
           <div className="divide-y divide-gray-200">
             {cartItems.map((item) => (
-              <div key={item.id} className="p-6 flex items-center gap-4">
+              <div key={item.id} className="p-6 flex items-center gap-4 relative mb-4">
+                {" "}
+                {/* <-- Ajout de relative et mb-4 */}
                 <img
                   src={item.image || "/placeholder.svg"}
                   alt={item.name}
                   className="w-16 h-16 rounded-lg object-cover"
                 />
-
                 <div className="flex-1">
                   <h3 className="font-semibold text-gray-800">{item.name}</h3>
                   <p className="text-sm text-gray-500">{item.weight}</p>
                   <p className="text-red-500 font-semibold">{item.price}</p>
                 </div>
-
                 <div className="flex items-center gap-3">
                   <button
                     onClick={() => updateQuantity(item.id, item.quantity - 1)}
@@ -155,19 +152,17 @@ ${customerInfo.notes ? `*Notes:* ${customerInfo.notes}` : ""}
                     +
                   </button>
                 </div>
-
                 <div className="text-right min-w-[100px]">
                   <p className="font-semibold text-gray-800">
                     {(item.priceNumber * item.quantity).toLocaleString()} FCFA
                   </p>
                 </div>
-
                 <button
                   onClick={() => removeFromCart(item.id)}
-                  className="text-red-500 hover:text-red-700 p-2"
+                  className="absolute top-2 right-2 text-red-500 hover:text-red-700 p-2" // <-- Positionnement absolu
                   title="Supprimer"
                 >
-                  🗑️
+                  <Trash2 className="h-5 w-5" /> {/* <-- Icône de suppression */}
                 </button>
               </div>
             ))}
