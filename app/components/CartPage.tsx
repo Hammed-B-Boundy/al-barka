@@ -81,7 +81,7 @@ ${customerInfo.notes ? `*Notes:* ${customerInfo.notes}` : ""}
 *Commande passee le:* ${new Date().toLocaleString("fr-FR")}`
 
     // 🔧 REMPLACEZ CE NUMÉRO PAR VOTRE NUMÉRO WHATSAPP
-    const restaurantWhatsApp = "22672966621" // ⚠️ CHANGEZ CE NUMÉRO !
+    const restaurantWhatsApp = "22389502592" // ⚠️ CHANGEZ CE NUMÉRO !
     const whatsappUrl = `https://wa.me/${restaurantWhatsApp}?text=${encodeURIComponent(orderMessage)}`
 
     // Simuler un délai de traitement
