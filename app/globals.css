@@ -125,8 +125,146 @@
   }
 }
 
+/* Styles pour les écrans plus petits (mobiles) */
 @media (max-width: 768px) {
-  .w-72 {
+  /* Conteneur principal de l'application */
+  .flex.min-h-screen.max-w-7xl.mx-auto.my-5.bg-white.rounded-3xl.overflow-hidden.shadow-2xl {
+    margin: 0; /* Supprime les marges latérales */
+    border-radius: 0; /* Supprime les coins arrondis */
+    flex-direction: column; /* Empile la sidebar et le contenu */
+    min-height: 100vh; /* S'assure que l'application prend toute la hauteur */
+  }
+
+  /* Sidebar */
+  .w-72.bg-gray-50.flex.flex-col.border-r.border-gray-200 {
+    width: 100%; /* La sidebar prend toute la largeur */
+    height: auto; /* Hauteur automatique */
+    border-right: none; /* Supprime la bordure droite */
+    border-bottom: 1px solid #e9ecef; /* Ajoute une bordure en bas */
+    flex-direction: row; /* Met les éléments de la sidebar en ligne */
+    justify-content: space-around; /* Distribue les éléments */
+    padding: 10px 0; /* Réduit le padding */
+  }
+
+  .sidebar-header,
+  .sidebar-footer {
+    display: none; /* Cache le logo et le profil utilisateur sur mobile pour simplifier */
+  }
+
+  .sidebar-menu {
+    flex-direction: row; /* Les sections de menu en ligne */
+    justify-content: space-around;
+    padding: 0;
     width: 100%;
+  }
+
+  .menu-section {
+    margin-bottom: 0;
+    flex: 1; /* Permet aux sections de prendre de l'espace */
+    text-align: center;
+  }
+
+  .menu-item {
+    margin: 0;
+    padding: 8px 0; /* Réduit le padding des items */
+    flex-direction: column; /* Empile icône et texte */
+    gap: 4px;
+  }
+
+  .menu-text {
+    font-size: 12px; /* Réduit la taille du texte */
+  }
+
+  .badge {
+    position: static; /* Positionne le badge normalement */
+    margin-left: 0;
+    margin-top: 4px; /* Ajoute un peu d'espace */
+  }
+
+  .section-title {
+    display: none; /* Cache les titres de section sur mobile */
+  }
+
+  /* Header */
+  .p-8.border-b.border-gray-200.bg-white {
+    padding: 20px; /* Réduit le padding du header */
+  }
+
+  .text-3xl.font-bold.text-gray-800 {
+    font-size: 2xl; /* Réduit la taille du titre de la page */
+  }
+
+  .relative.max-w-md.mb-6 {
+    max-width: 100%; /* La barre de recherche prend toute la largeur */
+  }
+
+  /* Menu Grid */
+  .flex-1.p-8.bg-gray-50 {
+    padding: 20px; /* Réduit le padding de la grille */
+  }
+
+  .grid.grid-cols-1.md\:grid-cols-2.lg\:grid-cols-3.gap-6 {
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); /* Une ou deux colonnes max */
+    gap: 16px; /* Réduit l'espace entre les cartes */
+  }
+
+  .menu-card {
+    padding: 10px; /* Réduit le padding des cartes */
+  }
+
+  .card-image {
+    height: 150px; /* Réduit la hauteur des images */
+  }
+
+  .card-title {
+    font-size: 16px; /* Réduit la taille du titre du plat */
+  }
+
+  .card-price {
+    font-size: 18px; /* Réduit la taille du prix */
+  }
+
+  /* Cart Page */
+  .max-w-4xl.mx-auto.space-y-6 {
+    padding: 0; /* Supprime le padding horizontal sur mobile */
+  }
+
+  .p-6.flex.items-center.gap-4 {
+    flex-wrap: wrap; /* Permet aux éléments du panier de passer à la ligne */
+    justify-content: center; /* Centre les éléments */
+    text-align: center;
+  }
+
+  .p-6.flex.items-center.gap-4 > img {
+    margin-bottom: 10px; /* Espace sous l'image */
+  }
+
+  .p-6.flex.items-center.gap-4 > div.flex-1 {
+    flex-basis: 100%; /* Le texte prend toute la largeur */
+  }
+
+  .p-6.flex.items-center.gap-3 {
+    margin-top: 10px; /* Espace au-dessus des boutons quantité */
+  }
+
+  .text-right.min-w-\[100px\] {
+    min-width: auto; /* Supprime la largeur minimale */
+    text-align: center;
+    flex-basis: 100%; /* Le prix total prend toute la largeur */
+  }
+
+  .text-red-500.hover\:text-red-700.p-2 {
+    position: absolute; /* Positionne le bouton supprimer */
+    top: 10px;
+    right: 10px;
+  }
+
+  .grid.grid-cols-1.md\:grid-cols-2.gap-4 {
+    grid-template-columns: 1fr; /* Une seule colonne pour le formulaire */
+  }
+
+  .w-full.bg-red-500.hover\:bg-red-600.disabled\:bg-gray-400.text-white.font-semibold.py-4.px-6.rounded-lg.transition-colors.duration-200.text-lg {
+    font-size: base; /* Réduit la taille du texte du bouton de commande */
+    padding: 12px 20px; /* Réduit le padding du bouton */
   }
 }

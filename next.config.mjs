@@ -9,6 +9,9 @@ const nextConfig = {
   images: {
     unoptimized: true,
   },
+  output: "export", // Génère des fichiers statiques
+  basePath: process.env.NODE_ENV === "production" ? "/al-barka" : "",
+  assetPrefix: process.env.NODE_ENV === "production" ? "/al-barka/" : "",
 }
 
 export default nextConfig
