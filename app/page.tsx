@@ -1,10 +1,12 @@
 "use client"
 
 import { useState } from "react"
-import AppSidebar from "./components/Sidebar" // <-- Renommé et importé le nouveau composant
+import Sidebar from "./components/Sidebar" // Sidebar pour PC
+import MobileSidebar from "./components/MobileSidebar" // Nouvelle sidebar pour mobile
 import Header from "./components/Header"
 import MenuGrid from "./components/MenuGrid"
 import { useToast } from "@/hooks/use-toast"
+import { useMediaQuery } from "@/hooks/use-media-query" // Importe le hook
 
 interface CartItem {
   id: number
@@ -21,6 +23,8 @@ export default function Home() {
   const [cartItems, setCartItems] = useState<CartItem[]>([])
   const [searchTerm, setSearchTerm] = useState("")
   const { toast } = useToast()
+  const isDesktop = useMediaQuery("(min-width: 768px)") // Détecte si l'écran est un PC
+  const [isMobileSidebarOpen, setIsMobileSidebarOpen] = useState(false) // État pour la sidebar mobile
 
   const addToCart = (item: any) => {
     const priceNumber = Number.parseInt(item.price.replace(" FCFA", ""))
@@ -80,10 +84,24 @@ export default function Home() {
 
   return (
     <div className="flex min-h-screen max-w-7xl mx-auto my-5 bg-white rounded-3xl overflow-hidden shadow-2xl">
-      <AppSidebar activeCategory={activeCategory} setActiveCategory={setActiveCategory} cartCount={getTotalItems()} />{" "}
-      {/* <-- Utilise AppSidebar */}
+      {isDesktop ? (
+        <Sidebar activeCategory={activeCategory} setActiveCategory={setActiveCategory} cartCount={getTotalItems()} />
+      ) : (
+        <MobileSidebar
+          activeCategory={activeCategory}
+          setActiveCategory={setActiveCategory}
+          cartCount={getTotalItems()}
+          isOpen={isMobileSidebarOpen}
+          setIsOpen={setIsMobileSidebarOpen}
+        />
+      )}
       <div className="flex-1 flex flex-col">
-        <Header searchTerm={searchTerm} setSearchTerm={setSearchTerm} activeCategory={activeCategory} />
+        <Header
+          searchTerm={searchTerm}
+          setSearchTerm={setSearchTerm}
+          activeCategory={activeCategory}
+          onMobileMenuClick={() => setIsMobileSidebarOpen(true)} // Ouvre la sidebar mobile
+        />
         <MenuGrid
           category={activeCategory}
           searchTerm={searchTerm}
