@@ -79,14 +79,19 @@ ${customerInfo.notes ? `*Notes:* ${customerInfo.notes}` : ""}
 *Commande passee le:* ${new Date().toLocaleString("fr-FR")}`
 
     // 🔧 REMPLACEZ CE NUMÉRO PAR VOTRE NUMÉRO WHATSAPP
-    const restaurantWhatsApp = "22389502592" // ⚠️ CHANGEZ CE NUMÉRO !
+    const restaurantWhatsApp = "22670123456" // ⚠️ CHANGEZ CE NUMÉRO !
     const whatsappUrl = `https://wa.me/${restaurantWhatsApp}?text=${encodeURIComponent(orderMessage)}`
+
+    toast({
+      title: "Redirection vers WhatsApp...",
+      description: "Veuillez confirmer l'envoi de votre commande sur WhatsApp.",
+      duration: 3000,
+    })
+    // Ouvrir WhatsApp avec le message
+    window.open(whatsappUrl, "_blank")
 
     // Simuler un délai de traitement
     setTimeout(() => {
-      // Ouvrir WhatsApp avec le message
-      window.open(whatsappUrl, "_blank")
-
       // Réinitialiser le formulaire
       setCustomerInfo({ name: "", phone: "", address: "", notes: "" })
       setIsOrdering(false)
